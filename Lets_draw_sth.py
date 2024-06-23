@@ -200,7 +200,7 @@ def init():
     #//near distance
     #//far distance
 
-
+# 
 glutInit()
 glutInitWindowSize(W_Width, W_Height)
 glutInitWindowPosition(0, 0)
