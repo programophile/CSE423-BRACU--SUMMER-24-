@@ -142,7 +142,7 @@ glutInitWindowPosition(0, 0)
 glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB) #	//Depth, Double buffer, RGB color
 
 # glutCreateWindow("My OpenGL Program")
-wind = glutCreateWindow(b"OpenGL Coding Practice")
+wind = glutCreateWindow(b"Lab 1 task 1")
 # init()
 
 glutDisplayFunc(showScreen)	#display callback function

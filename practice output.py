@@ -1,146 +1,158 @@
+import time
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 import random
 
-# Window dimensions
 W_Width, W_Height = 500, 500
-bg_color = (1.0, 1.0, 1.0, 1.0)
 
-# House boundaries
-house_x_min = 100
-house_x_max = 400
-house_y_min = 100
-house_y_max = 300
+points = []  
+speed = 0.001
+ball_size = 4
+freeze = False
 
-# Raindrop initialization
-arr = []
-for i in range(100):
-    while True:
-        x = random.uniform(0, 500)
-        y = random.uniform(0, 500)
-        if not (house_x_min <= x <= house_x_max and house_y_min <= y <= house_y_max):
-            break
-    arr.append((x, y))
+class Point:
+    def __init__(self, x, y, color):
+        self.x = x
+        self.y = y
+        self.color = color
+        self.dark = [0,0,0]
+        self.direction = [random.choice([-1, 1]), random.choice([-1, 1])]
 
+def convert_coordinate(x,y):
+    global W_Width, W_Height
+    a = x - (W_Width/2)
+    b = (W_Height/2) - y 
+    return a,b
 
-# Draw a raindrop
-def raindrops(x, y):
-    glColor3f(0, 0, 1.0)
-    glPointSize(5)
-    glBegin(GL_LINES)
-    glVertex2f(x, y)
-    glVertex2f(x, y - 10)
-    glEnd()
-
-
-# Update raindrops position
-def mul_raindrops():
-    for i in range(len(arr)):
-        x, y = arr[i]
-        y -= 1
-        if y < 0:
-            y = W_Height
-            while True:
-                x = random.uniform(0, 500)
-                if not (house_x_min <= x <= house_x_max):
-                    break
-        arr[i] = (x, y)
-
-
-# Animation function
-def animation(value):
-    mul_raindrops()
-    glutPostRedisplay()
-    glutTimerFunc(30, animation, 0)
-
-
-# Function to set up viewport and projection
-def iterate():
-    glViewport(0, 0, 500, 500)
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-    gluOrtho2D(0.0, 500, 0.0, 500)
-    glMatrixMode(GL_MODELVIEW)
-    glLoadIdentity()
-
-
-# Draw house
-def house():
-    glColor3f(0.0, 0.0, 0.0)
-    glBegin(GL_LINES)
-    # Roof
-    glVertex2f(400, 300)
-    glVertex2f(100, 300)
-    glVertex2f(400, 300)
-    glVertex2f(250, 400)
-    glVertex2f(100, 300)
-    glVertex2f(250, 400)
-    # Body
-    glVertex2f(380, 300)
-    glVertex2f(380, 100)
-    glVertex2f(120, 300)
-    glVertex2f(120, 100)
-    glVertex2f(120, 100)
-    glVertex2f(380, 100)
-    glEnd()
-
-    glBegin(GL_LINES)
-    # Door
-    glVertex2f(140, 100)
-    glVertex2f(140, 200)
-    glVertex2f(200, 100)
-    glVertex2f(200, 200)
-    glVertex2f(140, 200)
-    glVertex2f(200, 200)
-    # Window
-    glVertex2f(350, 200)
-    glVertex2f(350, 250)
-    glVertex2f(300, 200)
-    glVertex2f(300, 250)
-    glVertex2f(350, 250)
-    glVertex2f(300, 250)
-    glVertex2f(350, 200)
-    glVertex2f(300, 200)
-    glVertex2f(300, 225)
-    glVertex2f(350, 225)
-    glVertex2f(325, 250)
-    glVertex2f(325, 200)
-    glEnd()
-
+def draw_points(x, y, s, color):
+    glColor3f(color[0], color[1], color[2])
+    glPointSize(s) #pixel size. by default 1 thake
     glBegin(GL_POINTS)
-    # Door lock
-    glVertex2f(190, 120)
+    glVertex2f(x,y) #jekhane show korbe pixel
     glEnd()
+    
+def generate_movable_point(x, y):
+    global points
+    color = [random.random(), random.random(), random.random()]
+    points.append(Point(x, y, color))
 
 
-# Display function
-def showScreen():
+def draw_list_points():
+    global points
+    for point in points:
+        draw_points(point.x, point.y, ball_size, point.color)
+
+def keyboardListener(key, x, y):
+    global ball_size, speed, freeze
+    if key == b'w':
+        ball_size += 1
+        print("Size Increased")
+    elif key == b's':
+        ball_size -= 1
+        print("Size Decreased")
+    elif key == b' ':
+        freeze = not freeze
+        if freeze:
+            print("Freeze")
+        else:
+            print("Unfreeze")
+
+    glutPostRedisplay()
+
+# def specialKeyListener(key, x, y):
+#     global speed
+#     if key == GLUT_KEY_UP:
+#         if speed<0.25:
+#             speed *= 2
+#             print("Speed Increased")
+#     elif key == GLUT_KEY_DOWN:
+#         speed /= 2
+#         print("Speed Decreased")
+#     glutPostRedisplay()
+
+def mouseListener(button, state, x, y):
+    if button == GLUT_RIGHT_BUTTON and state == GLUT_DOWN:
+        c_x, c_y = convert_coordinate(x, y)
+        for i in range(-50,50,10):
+            if random.random()>0.75:
+                generate_movable_point(c_x+i, c_y+i)
+            elif random.random()>0.55:
+                generate_movable_point(c_x+i, c_y)
+            elif random.random()>0.25:
+                generate_movable_point(c_x, c_y-i)
+            else:
+                generate_movable_point(c_x+i, c_y-i)
+    if button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
+        for point in points:
+            point.color, point.dark =  point.dark, point.color
+    
+    if button == GLUT_LEFT_BUTTON and state == GLUT_UP:
+        time.sleep(1)
+        for point in points:
+            point.color, point.dark =  point.dark, point.color
+
+    glutPostRedisplay()
+
+def display():
+     #//clear the display
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glClearColor(0,0,0,0);	#//color black
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    #//load the correct matrix -- MODEL-VIEW matrix
+    glMatrixMode(GL_MODELVIEW)
+    #//initialize the matrix
     glLoadIdentity()
-    iterate()
-    house()
-
-    for i in arr:
-        raindrops(i[0], i[1])
-
+    #//now give three info
+    #//1. where is the camera (viewer)?
+    #//2. where is the camera looking?
+    #//3. Which direction is the camera's UP direction?
+    gluLookAt(0,0,200,	0,0,0,	0,1,0)
+    glMatrixMode(GL_MODELVIEW)
+    draw_list_points()
     glutSwapBuffers()
 
+def animate():
+    global points, freeze
+    if not freeze:
+        for point in points:
+            point.x += speed * point.direction[0]
+            point.y += speed * point.direction[1]
 
-# Main function
-def main():
-    glutInit()
-    glutInitWindowSize(W_Width, W_Height)
-    glutInitWindowPosition(0, 0)
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB)
-    glutCreateWindow(b"OpenGL Coding Practice")
+            if abs(point.x) > W_Width/2:
+                point.direction[0] *= -1
+            if abs(point.y) > W_Height/2:
+                point.direction[1] *= -1
+    glutPostRedisplay()
 
-    # init()
-    glutDisplayFunc(showScreen)
-    glutTimerFunc(0, animation, 0)
+def init():
+    #//clear the screen
+    glClearColor(0,0,0,0)
+    #//load the PROJECTION matrix
+    glMatrixMode(GL_PROJECTION)
+    #//initialize the matrix
+    glLoadIdentity()
+    #//give PERSPECTIVE parameters
+    gluPerspective(104,	1,	1,	1000.0)
+    # **(important)**aspect ratio that determines the field of view in the X direction (horizontally). The bigger this angle is, the more you can see of the world - but at the same time, the objects you can see will become smaller.
+    #//near distance
+    #//far distance
 
-    glutMainLoop()
+glutInit()
+glutInitWindowSize(W_Width, W_Height)
+glutInitWindowPosition(0, 0)
+glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB) #	//Depth, Double buffer, RGB color
 
 
-if __name__ == "__main__":
-    main()
+# glutCreateWindow("My OpenGL Program")
+wind = glutCreateWindow(b"CSE423 Assignment 1 Task 2")
+init()
+
+glutDisplayFunc(display)	#display callback function
+glutIdleFunc(animate)	#what you want to do in the idle time (when no drawing is occuring)
+
+# glutKeyboardFunc(keyboardListener)
+# glutSpecialFunc(specialKeyListener)
+glutMouseFunc(mouseListener)
+
+glutMainLoop()		#The main loop of OpenGL
