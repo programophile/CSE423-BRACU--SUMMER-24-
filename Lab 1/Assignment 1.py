@@ -130,7 +130,7 @@ def specialKeyListener(key,x,y):
 def mouseListener(button, state, x, y):
     global bg_color
     if button == GLUT_LEFT_BUTTON:
-        if (state == GLUT_DOWN):  # // 2 times?? in ONE click? -- solution is checking DOWN or UP
+        if (state == GLUT_DOWN):
             bg_color = (0, 0, 0, 0)
 
     if button == GLUT_RIGHT_BUTTON:
