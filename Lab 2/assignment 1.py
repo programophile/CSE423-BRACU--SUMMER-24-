@@ -12,13 +12,13 @@ class Diamond:
         self.x=random.randint(-220,220)
         self.y=340
         #cng
-        self.color = [random.uniform(0.3, 1.0) for _ in range(3)]
+        self.color = [random.uniform(0.5, 1.0),random.uniform(0.5, 1.0),random.uniform(0.5, 1.0)]
         self.iterate=0
     def restart(self):
         self.x = random.randint(-180, 180)
         self.y = 340
         # cng
-        self.color = [random.uniform(0.3, 1.0) for _ in range(3)]
+        self.color = [random.uniform(0.5, 1.0) for _ in range(3)]
 class Diamond_catcher:
     def __init__(self):
         self.x=0
@@ -161,9 +161,9 @@ def ui_drawing():
     pause_button()
 def coordinate_converter(x,y):
     global width, height
-    a = x - (width / 2)
-    b = (height / 2) - y
-    return a, b
+    x1 = x - (width / 2)
+    y1 = (height / 2) - y
+    return x1, y1
 def keyboardListener(key, x, y):
     global  stop
     if key == b' ':
@@ -229,7 +229,7 @@ def animate():
 
     global stop, diamond, diamond_catcher, gameover
     if not stop and not gameover:
-        diamond.y-= (100 + diamond.iterate*10)* delta_time
+        diamond.y-= (100 + diamond.iterate*20)* delta_time
         if diamond.y<=-365 and  diamond_catcher.x-75 <= diamond.x <= diamond_catcher.x+75:
             diamond.restart()
             diamond.iterate+=1
