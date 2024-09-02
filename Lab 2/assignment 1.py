@@ -126,19 +126,19 @@ def diamond_drawing():
     midpoint_line_algo(diamond.x + 10, diamond.y, diamond.x, diamond.y - 18)
     midpoint_line_algo(diamond.x - 10, diamond.y, diamond.x, diamond.y + 18)
     midpoint_line_algo(diamond.x - 10, diamond.y, diamond.x, diamond.y - 18)
-def left_button():
+def draw_left_button():
     glPointSize(4)
     glColor3f(0, 0.8, 1)
     midpoint_line_algo(-210, 350, -160, 350)
     glPointSize(3)
     midpoint_line_algo(-212, 350, -190, 370)
     midpoint_line_algo(-212, 350, -190, 330)
-def cross_button():
+def draw_cross_button():
     glPointSize(3)
     glColor3f(0.9, 0, 0)
     midpoint_line_algo(200, 365, 170, 335)
     midpoint_line_algo(200, 335, 170, 365)
-def pause_button():
+def draw_pause_button():
     glPointSize(4)
     glColor3f(1, .5, 0)
     if stop:
@@ -156,9 +156,9 @@ def ui_drawing():
     midpoint_line_algo(diamond_catcher.x + 60, -385, diamond_catcher.x + 70, -365)
     midpoint_line_algo(diamond_catcher.x + 60, -385, diamond_catcher.x - 60, -385)
     midpoint_line_algo(diamond_catcher.x - 60, -385, diamond_catcher.x - 70, -365)
-    left_button()
-    cross_button()
-    pause_button()
+    draw_left_button()
+    draw_cross_button()
+    draw_pause_button()
 def coordinate_converter(x,y):
     global width, height
     x1 = x - (width / 2)
@@ -237,7 +237,7 @@ def animate():
         if diamond.y<-400:
             diamond.restart()
             diamond_catcher.color=(1,0,0)
-            print("Game Over! Score:", diamond.iterate)
+            print("Game Over! Your Final Score is :", diamond.iterate)
             diamond.iterate=0
             stop=not stop
             gameover = True
@@ -261,7 +261,7 @@ glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB)
 
 
 
-wind = glutCreateWindow(b"Catch the Diamonds!")
+wind = glutCreateWindow(b"Diamonds Game!")
 init()
 
 glutDisplayFunc(display)
