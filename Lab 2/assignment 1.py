@@ -111,7 +111,7 @@ def midpoint_line_algo(x1,y1,x2,y2):
             d += NEincrease
             x += 1
             y += 1
-        # Convert back from zone 0
+        # Convert back from pointer_zone 0
         x0, y0 = zone_converter_from_zero(x,y,zone)
         point(x0, y0)
 diamond=Diamond()

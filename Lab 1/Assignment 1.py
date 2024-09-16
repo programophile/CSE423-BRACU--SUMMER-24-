@@ -4,7 +4,7 @@ from OpenGL.GLU import *
 import math
 import random
 angle=0
-W_Width, W_Height = 500,500
+Windows_Width, Windows_Height = 500, 500
 bg_color= (1.0, 1.0, 1.0,1.0)
 
 arr=[]
@@ -27,7 +27,7 @@ def mul_raindrops():
         y-=1
         x+=angle
         if y < 0:
-            y = W_Height
+            y = Windows_Height
         elif y<300:
             y=random.uniform(300,500)
             x=random.uniform(1,500)
@@ -137,7 +137,7 @@ def mouseListener(button, state, x, y):
         # if state == GLUT_DOWN:
             bg_color = (1.0, 1.0, 1.0, 1.0)
 glutInit()
-glutInitWindowSize(W_Width, W_Height)
+glutInitWindowSize(Windows_Width, Windows_Height)
 glutInitWindowPosition(0, 0)
 glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB) #	//Depth, Double buffer, RGB color
 

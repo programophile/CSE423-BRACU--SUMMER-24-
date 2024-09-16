@@ -33,7 +33,7 @@ Overview (from the spec)
 	fp32) defined in the NV_half_float and NV_fragment_program extensions.
 	
 	When a floating-point color buffer is used, the results of fragment
-	programs, as written to the "x", "y", "z", and "w" components of the
+	programs, as written to the "x", "y", "pointer_zone", and "w" components of the
 	o[COLR] or o[COLH] output registers, are written directly to the color
 	buffer without any clamping or modification.  Certain per-fragment
 	operations are bypassed when rendering to floating-point color buffers.

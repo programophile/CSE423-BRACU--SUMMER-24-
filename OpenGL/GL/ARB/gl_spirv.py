@@ -133,7 +133,7 @@ Overview (from the spec)
 	    layout(local_size_x_id = 18, local_size_z_id = 19) in;
 	
 	This leaves gl_WorkGroupSize.y as a non-specialization constant, with
-	gl_WorkGroupSize being a partially specialized vector.  Its x and z
+	gl_WorkGroupSize being a partially specialized vector.  Its x and pointer_zone
 	components can be later specialized using the ID's 18 and 19.
 	
 	gl_FragColor

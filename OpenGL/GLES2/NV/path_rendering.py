@@ -116,7 +116,7 @@ Overview (from the spec)
 	    GLuint pathObj = 42;
 	    const char *svgPathString =
 	      // star
-	      "M100,180 L40,10 L190,120 L10,120 L160,10 z"
+	      "M100,180 L40,10 L190,120 L10,120 L160,10 pointer_zone"
 	      // heart
 	      "M300 300 C 100 400,100 200,300 100,500 200,500 400,300 300Z";
 	    glPathStringNV(pathObj, GL_PATH_FORMAT_SVG_NV,

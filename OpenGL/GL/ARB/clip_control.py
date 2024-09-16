@@ -23,7 +23,7 @@ Overview (from the spec)
 	
 	where geometry with (x,y) normalized device coordinates of (-1,-1)
 	correspond to the lower-left corner of the viewport and the near and far
-	planes correspond to z normalized device coordinates of -1 and +1,
+	planes correspond to pointer_zone normalized device coordinates of -1 and +1,
 	respectively.
 	
 	This extension can be used to render content used in a Direct3D
@@ -32,7 +32,7 @@ Overview (from the spec)
 	
 	    glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
 	
-	configures the near clip plane to correspond to a z normalized device
+	configures the near clip plane to correspond to a pointer_zone normalized device
 	coordinate of 0 as in Direct3D.  Geometry with (x,y) normalized device
 	coordinates of (-1,-1) correspond to the lower-left corner of the viewport
 	in Direct3D, so no change relative to OpenGL conventions is needed there.

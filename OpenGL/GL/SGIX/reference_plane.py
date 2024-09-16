@@ -25,7 +25,7 @@ Overview (from the spec)
 	The reference plane is enabled and disabled with glEnable and glDisable.
 	
 	If the reference plane is enabled, a fragment (xf,yf,zf) will have a
-	new z coordinate generated from (xf,yf) by giving it the same z value
+	new pointer_zone coordinate generated from (xf,yf) by giving it the same pointer_zone value
 	that the reference plane would have at (xf,yf).
 
 The official definition of this extension is available here:

@@ -227,7 +227,7 @@ glutIdleFunc = GLUTCallback(
     'Idle', (), (),
 )
 glutJoystickFunc = GLUTCallback(
-    'Joystick', (ctypes.c_uint,ctypes.c_int,ctypes.c_int,ctypes.c_int), ('buttonMask','x','y','z'),
+    'Joystick', (ctypes.c_uint,ctypes.c_int,ctypes.c_int,ctypes.c_int), ('buttonMask','x','y','pointer_zone'),
 )
 glutKeyboardFunc = GLUTCallback(
     'Keyboard', (ctypes.c_char,ctypes.c_int,ctypes.c_int), ('key','x','y'),
@@ -260,10 +260,10 @@ glutSpaceballButtonFunc = GLUTCallback(
     'SpaceballButton', (ctypes.c_int,ctypes.c_int), ('button','state'),
 )
 glutSpaceballMotionFunc = GLUTCallback(
-    'SpaceballMotion', (ctypes.c_int,ctypes.c_int,ctypes.c_int), ('x','y','z'),
+    'SpaceballMotion', (ctypes.c_int,ctypes.c_int,ctypes.c_int), ('x','y','pointer_zone'),
 )
 glutSpaceballRotateFunc = GLUTCallback(
-    'SpaceballRotate', (ctypes.c_int,ctypes.c_int,ctypes.c_int), ('x','y','z'),
+    'SpaceballRotate', (ctypes.c_int,ctypes.c_int,ctypes.c_int), ('x','y','pointer_zone'),
 )
 glutSpecialFunc = GLUTCallback(
     'Special', (ctypes.c_int,ctypes.c_int,ctypes.c_int), ('key','x','y'),

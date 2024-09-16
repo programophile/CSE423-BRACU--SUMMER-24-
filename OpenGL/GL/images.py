@@ -414,7 +414,7 @@ def glGetTexImage( target, level,format,type, array=None, outputType=bytes ):
 
 
 INT_DIMENSION_NAMES = [
-    'width','height','depth','x','y','z',
+    'width','height','depth','x','y','pointer_zone',
     'xoffset','yoffset','zoffset',
     'start', 'count',
 ]

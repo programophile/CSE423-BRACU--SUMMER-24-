@@ -4,7 +4,7 @@ from OpenGL.GLU import *
 
 import math
 
-W_Width, W_Height = 500,500
+Windows_Width, Windows_Height = 500, 500
 
 
 ballx = bally = 0
@@ -29,7 +29,7 @@ def crossProduct(a, b):
     return result
 
 def convert_coordinate(x,y):
-    global W_Width, W_Height
+    global Windows_Width, Windows_Height
     a = x - (W_Width/2)
     b = (W_Height/2) - y 
     return a,b
@@ -202,7 +202,7 @@ def init():
 
 # 
 glutInit()
-glutInitWindowSize(W_Width, W_Height)
+glutInitWindowSize(Windows_Width, Windows_Height)
 glutInitWindowPosition(0, 0)
 glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB) #	//Depth, Double buffer, RGB color
 

@@ -11,7 +11,7 @@ Overview (from the spec)
 	number of pixels rasterized  and (possibly) the number of depth and
 	stencil operations performed per primitive.  Each pixel is zoomed
 	up and used to render an N x N block of screen pixels.  The
-	implementation is free to choose the number of stencil and z pixels
+	implementation is free to choose the number of stencil and pointer_zone pixels
 	that will correspond to each N x N block.
 	
 	This extension provides an opportunity to the implementation to

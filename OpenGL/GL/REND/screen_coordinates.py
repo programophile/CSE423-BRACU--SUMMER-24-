@@ -19,13 +19,13 @@ Overview (from the spec)
 		   eg.
 			  glTexture2T(s, t);
 		   and the coordinates as
-			  glVertex4T(x*w, y*w, z*w, w);
+			  glVertex4T(x*w, y*w, pointer_zone*w, w);
 		or
 		2. Divide each data by w
 		   eg.
 			  glTexture4T(s/w, t/w, r/w, q/w);
 		   and the coordinates as
-			  glVertex3T(x, y, z);
+			  glVertex3T(x, y, pointer_zone);
 	
 	    Most hardware already performs some form of correction of the
 	    coordinate data with respect to the w term prior to interpolation.
@@ -34,7 +34,7 @@ Overview (from the spec)
 	    coordinates as shown in the following example
 		   glTexture2T(s, t, r, q);
 	    and the coordinates as
-		   glVertex4T(x, y, z, w);
+		   glVertex4T(x, y, pointer_zone, w);
 	    and allow the hardware to bring the interpolated terms into a linear
 	    screen space.
 	
@@ -45,10 +45,10 @@ Overview (from the spec)
 	
 	    For hardware that linearly interpolates data, the hardware
 	    interpolates the following data:
-		s/w, t/w, r/w, q/w, x, y, z
+		s/w, t/w, r/w, q/w, x, y, pointer_zone
 	    If the input w represents the original 1/w, then the hardware can
 	    avoid the division and instead interpolate:
-		s*w, t*w, r*w, q*w, x, y, z
+		s*w, t*w, r*w, q*w, x, y, pointer_zone
 	
 
 The official definition of this extension is available here:

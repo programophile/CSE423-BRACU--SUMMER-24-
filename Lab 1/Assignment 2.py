@@ -4,14 +4,14 @@ from OpenGL.GLU import *
 import math
 import random
 import time
-W_Width,W_Height=500,500
+Windows_Width, Windows_Height= 500, 500
 point_arr=[]
-freeze=False
+game_freeze_falg=False
 speed=0.005
 size=4
 
 def convert_coordinate(x,y):
-    global W_Width, W_Height
+    global Windows_Width, Windows_Height
     a = x - (W_Width/2)
     b = (W_Height/2) - y
     return a,b
@@ -42,14 +42,14 @@ def draw_mul_point():
 
 def animate():
     global point_arr
-    if freeze==False:
+    if game_freeze_falg==False:
         for i in point_arr:
             # print(i[0],i[1])
             i.x+=i.direc[0]*speed
             i.y+=i.direc[1]*speed
-            if abs(i.x) > W_Width / 2:
+            if abs(i.x) > Windows_Width / 2:
                 i.direc[0] *= -1
-            if abs(i.y) > W_Height / 2:
+            if abs(i.y) > Windows_Height / 2:
                 i.direc[1] *= -1
     glutPostRedisplay()
 
@@ -81,7 +81,7 @@ def mouseListener(button,state,x,y):
 
     glutPostRedisplay()
 def keyboardListener(key,x,y):
-    global speed,freeze,size
+    global speed,game_freeze_falg,size
     if key==b'w':
         size+=1
     elif key==b's':
@@ -117,7 +117,7 @@ def display():
     glutSwapBuffers()
 
 glutInit()
-glutInitWindowSize(W_Width, W_Height)
+glutInitWindowSize(Windows_Width, Windows_Height)
 glutInitWindowPosition(0, 0)
 glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB) #	//Depth, Double buffer, RGB color
 

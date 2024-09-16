@@ -26,7 +26,7 @@ Overview (from the spec)
 	of a texture to be used as framebuffer-attachable images.  A
 	particular image of a texture object is selected for use as a
 	framebuffer-attachable image by specifying the mipmap level, cube
-	map face (for a cube map texture), and z-offset (for a 3D texture)
+	map face (for a cube map texture), and pointer_zone-offset (for a 3D texture)
 	that identifies the image.  The "render to texture" semantics of
 	this extension are similar to performing traditional rendering to
 	the framebuffer, followed immediately by a call to CopyTexSubImage.
